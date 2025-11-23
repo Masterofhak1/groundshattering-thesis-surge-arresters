@@ -1,6 +1,6 @@
 # Surge Arrester Testing - Analysis & Modeling
 
-Hi! If you have found this repository for surge arrester testing (or stumbled by accident?), I would recommend you read first my thesis here: [Surge Arrester Analysis in the Insulation Region](https://resolver.tudelft.nl/uuid:81ae282d-0ad8-44b0-adf3-3be180313855) to understand the context behind most of the code(s).
+Hi! If you have found this repository for surge arrester testing (or stumbled by accident?), I would recommend you read first my thesis here: [Characterisation of Arresters for Harmonic Overvolatge Studies](https://resolver.tudelft.nl/uuid:81ae282d-0ad8-44b0-adf3-3be180313855) to understand the context behind most of the code(s).
 
 To my supervisors visiting this page: send me an email when you're working on it ;)
 
@@ -74,7 +74,7 @@ groundshattering-thesis-surge-arresters/
 
 If you use this code or methodology in your research, please cite:
 ```
-[Your thesis citation will go here]
+https://resolver.tudelft.nl/uuid:81ae282d-0ad8-44b0-adf3-3be180313855
 ```
 
 ---
