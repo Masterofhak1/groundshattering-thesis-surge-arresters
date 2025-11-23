@@ -53,7 +53,7 @@ groundshattering-thesis-surge-arresters/
 
 ## Complete Workflow - Step by Step
 
-### 📊 Step 1: Data Collection from Oscilloscope
+### Step 1: Data Collection from Oscilloscope
 
 **What you do:**
 1. Save data from your Picoscope (or similar oscilloscope)
@@ -66,11 +66,11 @@ groundshattering-thesis-surge-arresters/
    - Example: `A5_1_50-0016.csv` (50 Hz, measurement #16)
    - Example: `A5_1_DC-0010.csv` (DC measurement #10)
 
-**💡 Tip:** Keep the same measurement number across different frequencies for the same voltage level to make data tracking easier!
+**Tip:** Keep the same measurement number across different frequencies for the same voltage level to make data tracking easier!
 
 ---
 
-### ⚡ Step 2: Run A5 Analysis Code
+### Step 2: Run A5 Analysis Code
 
 **Script:** [`source codes/A5 Analysis.py`](source%20codes/A5%20Analysis.py)
 
@@ -97,16 +97,16 @@ python "source codes/A5 Analysis.py"
 ```
 
 **Outputs:**
-- `results/improved_ac_results.csv` ⭐ **IMPORTANT - needed for next steps!**
+- `results/improved_ac_results.csv` **IMPORTANT - needed for next steps!**
 - `results/improved_dc_results.csv` (if DC measurements exist)
 - `results/<frequency>Hz/` folders with individual waveform plots and data
 - Various plots: capacitance, resistance, V-I characteristics
 
-**⚠️ Critical:** The `improved_ac_results.csv` file is the key output - you'll need it for Step 3!
+**Critical:** The `improved_ac_results.csv` file is the key output - you'll need it for Step 3!
 
 ---
 
-### 🔋 Step 2b (Optional): Run Energy and Power Analysis
+### Step 2b (Optional): Run Energy and Power Analysis
 
 **Script:** [`source codes/A5 Energy and Power Analysis.py`](source%20codes/A5%20Energy%20and%20Power%20Analysis.py)
 
@@ -136,7 +136,7 @@ python "source codes/A5 Energy and Power Analysis.py"
 
 ---
 
-### 🔌 Step 3: Extract Nonlinear V-I Characteristics
+### Step 3: Extract Nonlinear V-I Characteristics
 
 **Script:** [`source codes/nonlinear_resistive_current.py`](source%20codes/nonlinear_resistive_current.py)
 
@@ -147,8 +147,8 @@ python "source codes/A5 Energy and Power Analysis.py"
 - Generates Type 92 element table for power system simulations
 
 **Prerequisites:**
-1. ✅ Copy `results/improved_ac_results.csv` to the same directory as this script
-2. ✅ The script expects this file to be in the current directory
+1. Copy `results/improved_ac_results.csv` to the same directory as this script
+2. The script expects this file to be in the current directory
 
 **Configuration:**
 
@@ -170,15 +170,15 @@ python "source codes/nonlinear_resistive_current.py"
 
 **Outputs:**
 - `Nonlinear_resistive_current_results/calculated_nonlinear_vi.csv`
-- `Nonlinear_resistive_current_results/type92_element_table.csv` ⭐ **For ATP/EMTP modeling**
+- `Nonlinear_resistive_current_results/type92_element_table.csv` **For ATP/EMTP modeling**
 - `Nonlinear_resistive_current_results/type92_element_table.txt` (formatted table)
 - Frequency-based V-I curves and polynomial fit plots
 
-**⚠️ Important:** The `type92_element_table.csv` contains the nonlinear V-I data for ATP/EMTP Type 92 surge arrester modeling!
+**Important:** The `type92_element_table.csv` contains the nonlinear V-I data for ATP/EMTP Type 92 surge arrester modeling!
 
 ---
 
-### 📈 Step 4: Manual Data Extraction for Cole-Cole Fitting
+### Step 4: Manual Data Extraction for Cole-Cole Fitting
 
 **What you do manually:**
 For a specific voltage level across different frequencies, you need to extract R_linear and Cs values to calculate equivalent impedance parameters.
@@ -202,11 +202,11 @@ Create a file named `Impedance Plots Validation.csv` (or similar) with columns:
 - |X_eq| (Ω or MΩ)
 - Voltage (kV)
 
-**💡 Example data in:** [`source codes/Impedance Plots Validation.xlsx`](source%20codes/Impedance%20Plots%20Validation.xlsx) and [`source codes/Impedance Plots Validation.csv`](source%20codes/Impedance%20Plots%20Validation.csv)
+**Example data in:** [`source codes/Impedance Plots Validation.xlsx`](source%20codes/Impedance%20Plots%20Validation.xlsx) and [`source codes/Impedance Plots Validation.csv`](source%20codes/Impedance%20Plots%20Validation.csv)
 
 ---
 
-### 🎯 Step 5: Cole-Cole Model Parameter Fitting
+### Step 5: Cole-Cole Model Parameter Fitting
 
 **Script:** [`source codes/Cole Cole Model for Measurements.py`](source%20codes/Cole%20Cole%20Model%20for%20Measurements.py)
 
@@ -216,8 +216,8 @@ Create a file named `Impedance Plots Validation.csv` (or similar) with columns:
 - Generates two versions: balanced fit and R-prioritized fit
 
 **Prerequisites:**
-1. ✅ Create `Impedance Plots Validation.csv` from Step 4
-2. ✅ Place it in the same directory as this script
+1. Create `Impedance Plots Validation.csv` from Step 4
+2. Place it in the same directory as this script
 
 **Configuration:**
 
@@ -236,14 +236,14 @@ python "source codes/Cole Cole Model for Measurements.py"
 
 **Outputs:**
 - `cole_cole_impedance_results/Cole_Cole_Parameters.csv` (balanced fit)
-- `cole_cole_impedance_results_R_priority/Cole_Cole_Parameters.csv` ⭐ **(recommended)**
+- `cole_cole_impedance_results_R_priority/Cole_Cole_Parameters.csv` **(recommended)**
 - Impedance plots comparing measured vs fitted data
 
-**💡 Tip:** Use the **R_priority** folder results - they typically provide better fits for resistive characteristics!
+**Tip:** Use the **R_priority** folder results - they typically provide better fits for resistive characteristics!
 
 ---
 
-### 🔗 Step 6: RC Network Synthesis
+### Step 6: RC Network Synthesis
 
 **Script:** [`source codes/Realising RC Networks.py`](source%20codes/Realising%20RC%20Networks.py)
 
@@ -253,8 +253,8 @@ python "source codes/Cole Cole Model for Measurements.py"
 - Generates network topology diagrams and frequency response comparisons
 
 **Prerequisites:**
-1. ✅ Get Cole-Cole parameters from `Cole_Cole_Parameters.csv` (Step 5)
-2. ✅ Manually edit the script to input these parameters
+1. Get Cole-Cole parameters from `Cole_Cole_Parameters.csv` (Step 5)
+2. Manually edit the script to input these parameters
 
 **Configuration:**
 
@@ -264,13 +264,13 @@ You **MUST manually edit** lines 717-725 with your Cole-Cole parameters:
 |------|-----------|---------------|-------------|
 | **Line 718** | `f0` | `1` Hz | Minimum frequency for RC model operation |
 | **Line 719** | `f1` | `1000.0` Hz | Maximum frequency for RC model operation |
-| **Line 720** | `N` | `3` | Number of RC branches ⚠️ |
+| **Line 720** | `N` | `3` | Number of RC branches |
 | **Line 721** | `alpha` | `0.587` | From Cole_Cole_Parameters.csv |
 | **Line 722** | `tau0` | `0.1` s | From Cole_Cole_Parameters.csv (tau_0 × 10^-6) |
 | **Line 723** | `C_inf` | `0.521e-9` F | From Cole_Cole_Parameters.csv (C_inf × 10^-9) |
 | **Line 724** | `C0` | `0.882e-9` F | From Cole_Cole_Parameters.csv (C_0 × 10^-9) |
 
-**⚠️ Important Notes:**
+**Important Notes:**
 - **Frequency range (f0, f1):** Extend by 1-2 decades on each side of your measurement range to avoid approximation errors at corner frequencies
   - Example: If you measured 10-500 Hz, use f0=1 Hz and f1=5000 Hz
 - **Number of branches (N):** More branches = better approximation but more complex circuit
@@ -290,7 +290,7 @@ python "source codes/Realising RC Networks.py"
 - `complete_capacitor_models.png` - Complete model frequency response
 - Console output: R and C values for Foster I and Foster II networks
 
-**💡 Network topologies:**
+**Network topologies:**
 - **Foster I:** Series RC branches in parallel
 - **Foster II:** Parallel RC branches in series
 - Choose based on your circuit simulation requirements
