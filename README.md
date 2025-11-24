@@ -32,6 +32,18 @@ conda install numpy pandas matplotlib scipy numba
 
 ---
 
+## Code Documentation
+
+All Python scripts in this repository are thoroughly documented with:
+- Detailed docstrings for functions and classes
+- Inline comments explaining key calculations and algorithms
+- Parameter descriptions and units
+- Usage examples in the main execution blocks
+
+The scripts are designed to be self-explanatory - read through the code to understand the implementation details, algorithms, and any specific configuration options beyond what is documented in this README.
+
+---
+
 ## Repository Structure
 
 ```
@@ -66,7 +78,7 @@ groundshattering-thesis-surge-arresters/
    - Example: `A5_1_50-0016.csv` (50 Hz, measurement #16)
    - Example: `A5_1_DC-0010.csv` (DC measurement #10)
 
-**Tip:** Keep the same measurement number across different frequencies for the same voltage level to make data tracking easier!
+**Tip:** Keep the same measurement number across different frequencies for the same voltage level to make data tracking easier.
 
 ---
 
@@ -97,16 +109,16 @@ python "source codes/A5 Analysis.py"
 ```
 
 **Outputs:**
-- `results/improved_ac_results.csv` **IMPORTANT - needed for next steps!**
+- `results/improved_ac_results.csv` **IMPORTANT - needed for next steps**
 - `results/improved_dc_results.csv` (if DC measurements exist)
 - `results/<frequency>Hz/` folders with individual waveform plots and data
 - Various plots: capacitance, resistance, V-I characteristics
 
-**Critical:** The `improved_ac_results.csv` file is the key output - you'll need it for Step 3!
+**Critical:** The `improved_ac_results.csv` file is the key output - you'll need it for Step 3.
 
 ---
 
-### Step 2b (Optional): Run Energy and Power Analysis
+### Step 2b: Run Energy and Power Analysis
 
 **Script:** [`source codes/A5 Energy and Power Analysis.py`](source%20codes/A5%20Energy%20and%20Power%20Analysis.py)
 
@@ -114,6 +126,7 @@ python "source codes/A5 Analysis.py"
 - Calculates energy dissipation and power over time
 - Takes approximately **35 minutes** to run
 - Creates detailed energy/power time series plots
+- Required for final model validation and comparison between measured arrester and synthesized model
 
 **Configuration:**
 
@@ -174,7 +187,7 @@ python "source codes/nonlinear_resistive_current.py"
 - `Nonlinear_resistive_current_results/type92_element_table.txt` (formatted table)
 - Frequency-based V-I curves and polynomial fit plots
 
-**Important:** The `type92_element_table.csv` contains the nonlinear V-I data for ATP/EMTP Type 92 surge arrester modeling!
+**Important:** The `type92_element_table.csv` contains the nonlinear V-I data for ATP/EMTP Type 92 surge arrester modeling.
 
 ---
 
@@ -239,7 +252,7 @@ python "source codes/Cole Cole Model for Measurements.py"
 - `cole_cole_impedance_results_R_priority/Cole_Cole_Parameters.csv` **(recommended)**
 - Impedance plots comparing measured vs fitted data
 
-**Tip:** Use the **R_priority** folder results - they typically provide better fits for resistive characteristics!
+**Tip:** Use the **R_priority** folder results - they typically provide better fits for resistive characteristics.
 
 ---
 
