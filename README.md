@@ -29,7 +29,7 @@ conda create -n surge-arrester python=3.9
 conda activate surge-arrester
 conda install numpy pandas matplotlib scipy numba
 ```
-
+It could be that these packages are already installed in your conda environment, but its always good to check twice.
 ---
 
 ## Code Documentation
@@ -68,12 +68,12 @@ groundshattering-thesis-surge-arresters/
 ### Step 1: Data Collection from Oscilloscope
 
 **What you do:**
-1. Save data from your Picoscope (or similar oscilloscope)
+1. Save data from your Picoscope (or similar oscilloscope). I usually keep track of the test cases using an excel sheet; to have an idea of the progress and everything in one place. See ['examples here'](examples/Measurements%20Tally%20A5.xlsx) & (examples/Measurement%20Tally.xlsx)
 2. Data format: 3 columns in CSV format
    - Column 1: Time (ms)
    - Column 2 (CH1): Voltage (kV)
    - Column 3 (CH3): Current (mA)
-3. File naming convention: `A5_1_<frequency>-<number>.csv`
+3. File naming convention: `A5_1_<frequency>-<number>.csv` is recommended
    - Example: `A5_1_17-0016.csv` (17 Hz, measurement #16)
    - Example: `A5_1_50-0016.csv` (50 Hz, measurement #16)
    - Example: `A5_1_DC-0010.csv` (DC measurement #10)
