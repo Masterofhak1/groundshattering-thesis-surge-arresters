@@ -190,15 +190,20 @@ python "source codes/A5 Analysis.py"
 
 ---
 
-### Step 2b: Run Energy and Power Analysis
+### Step 2b: Energy and Power Analysis
 
 **Script:** [`source codes/A5 Energy and Power Analysis.py`](source%20codes/A5%20Energy%20and%20Power%20Analysis.py)
 
+**Why this matters:**
+This script calculates the energy dissipation and power consumption of your measured MOV over time. You'll need these results later (after modeling in ATP) to compare against your ATP model's energy and power outputs - this is how you validate that your model actually behaves like the real device. Don't skip this!
+
 **What it does:**
 - Calculates energy dissipation and power over time
-- Takes approximately **35 minutes** to run
 - Creates detailed energy/power time series plots
-- Required for final model validation and comparison between measured arrester and synthesized model
+- Generates batch comparison plots across frequencies
+- Produces a summary file (keep this handy for ATP model comparison later)
+
+**Heads up:** This takes approximately **30-35 minutes** to run for a typical dataset. Touch grass, socialise with others, grab a coffee - the code will be fine without you.
 
 **Configuration:**
 
@@ -209,6 +214,24 @@ python "source codes/A5 Analysis.py"
 | Line 1040 | `start_from_first_peak` | `True` | Start analysis from first voltage peak |
 | Line 1041 | `skip_initial_samples` | `10` | Skip initial transient samples |
 
+#### Understanding the Configurable Parameters
+
+**1. Peak Detection Sensitivity**
+```python
+min_peak_height_ratio = 0.3
+```
+Controls how prominent a voltage peak must be to trigger the analysis start point. Default 0.3 means 30% of max voltage. Increase to 0.5+ for noisy data where false peaks might be detected. Lower values = more sensitive, higher values = only catches obvious peaks.
+
+**2. Analysis Start Method**
+```python
+start_from_first_peak = True
+skip_initial_samples = 10
+```
+Two options: either start from the first detected voltage peak (`True`) or skip a fixed number of samples (`False` + set `skip_initial_samples`). Peak-based start is usually better as it syncs with the actual waveform, but fixed skip is useful if peak detection is being unreliable.
+
+**3. Voltage Amplifier Gain**
+Same as A5 Analysis - hardcoded 3x gain. Change if your setup differs.
+
 **How to run:**
 ```bash
 python "source codes/A5 Energy and Power Analysis.py"
@@ -216,8 +239,8 @@ python "source codes/A5 Energy and Power Analysis.py"
 
 **Outputs:**
 - Energy and power time series CSV files
-- Comparative plots across frequencies
-- Summary CSV with energy metrics
+- **Batch comparison plots** (3-4 plots) - compare across frequencies
+- **Summary CSV with energy metrics** - glance through this, you'll need it when doing ATP model energy/power comparison later
 
 ---
 
@@ -243,6 +266,20 @@ python "source codes/A5 Energy and Power Analysis.py"
 | **Line 525** | `output_dir` | `"Nonlinear_resistive_current_results"` | Output folder |
 | Line 526 | `nonlinear_res_threshold` | `900` MΩ | Threshold for filtering high resistance values |
 | Line 527 | `type92_points` | `20` | Number of points for Type 92 table |
+
+#### Understanding the Configurable Parameters
+
+**1. Nonlinear Resistance Threshold**
+```python
+nonlinear_res_threshold = 900  # MΩ
+```
+Filters out data points where nonlinear resistance exceeds this value. Why? At very low currents, the calculated nonlinear resistance becomes unrealistically high (approaching infinity) and skews the polynomial fit. 900 MΩ works well for most cases, but if you're losing valid data points, increase it. If you're getting weird polynomial fits, try decreasing it.
+
+**2. Type 92 Table Points**
+```python
+type92_points = 20
+```
+Number of V-I points generated for the ATP/EMTP Type 92 element. 20 points is the preferred value. Also good to read the ATP-EMTP Manual and rulebook for this (see section on modelling in the `modelling/` folder - coming soon).
 
 **How to run:**
 ```bash
@@ -312,6 +349,24 @@ Create a file named `Impedance Plots Validation.csv` (or similar) with columns:
 | **Line 734** | `output_dir` | `"cole_cole_impedance_results"` | Output folder (balanced fit) |
 | **Line 742** | `output_dir` | `"cole_cole_impedance_results_R_priority"` | Output folder (R-prioritized) |
 
+#### Understanding the Configurable Parameters
+
+**1. R-Priority Mode**
+```python
+prioritize_R = True  # or False
+```
+The script runs twice automatically - once balanced, once R-prioritized. Honestly? I just use R-priority because it makes me happier. But the actual reason it exists: the R-priority mode weights resistance fitting 5× higher than capacitance in the error minimization. This helps when the optimizer might otherwise sacrifice R accuracy to get a better X fit - and we want those R losses properly captured in the model.
+
+**2. Input Units**
+The script expects `R_equ` and `|X_equ|` columns in **MΩ**. It converts internally to Ω. If your data is already in Ω, your results will be off by 10^6 - double check this!
+
+**3. Optimization Parameters (advanced)**
+```python
+maxiter = 5000   # Maximum iterations
+popsize = 50     # Population size
+```
+Don't touch these unless you know what you're doing. See Appendix of the thesis to learn more about differential evolution parameters and which ones affect what.
+
 **How to run:**
 ```bash
 # 1. Ensure Impedance Plots Validation.csv is in the same directory
@@ -355,11 +410,21 @@ You **MUST manually edit** lines 717-725 with your Cole-Cole parameters:
 | **Line 723** | `C_inf` | `0.521e-9` F | From Cole_Cole_Parameters.csv (C_inf × 10^-9) |
 | **Line 724** | `C0` | `0.882e-9` F | From Cole_Cole_Parameters.csv (C_0 × 10^-9) |
 
-**Important Notes:**
-- **Frequency range (f0, f1):** Extend by 1-2 decades on each side of your measurement range to avoid approximation errors at corner frequencies
-  - Example: If you measured 10-500 Hz, use f0=1 Hz and f1=5000 Hz
-- **Number of branches (N):** More branches = better approximation but more complex circuit
-  - Start with N=3, increase if needed
+#### Understanding the Configurable Parameters
+
+**1. Number of RC Branches (N)**
+```python
+N = 3
+```
+N=3 was the initial model in the thesis. I also tried N=5 and saw better accuracy in the frequency response match - but obviously the component values start getting absurd. More branches = closer match to the ideal Cole-Cole curve, but how willing are you to play with data-entry is the real question. The function of these RC parameters is explained in Chapter 4 (Modelling) of the thesis.
+
+**2. Frequency Range (f0, f1)**
+```python
+f0 = 1      # Hz - lower bound
+f1 = 1000   # Hz - upper bound
+```
+Extend by 1-2 decades on each side of your measurement range to avoid approximation errors at corner frequencies.
+- Example: If you measured 10-500 Hz, use f0=1 Hz and f1=5000 Hz
 
 **How to run:**
 ```bash
