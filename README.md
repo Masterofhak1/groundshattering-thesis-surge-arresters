@@ -1,4 +1,4 @@
-# Surge Arrester Testing - Analysis & Modeling
+# Characterisation of Arresters of Harmonic Overvoltage Studies
 
 Hi! If you have found this repository for surge arrester testing (or stumbled by accident?), I would recommend you read first my thesis here: [Characterisation of Arresters for Harmonic Overvoltage Studies](https://resolver.tudelft.nl/uuid:81ae282d-0ad8-44b0-adf3-3be180313855) to understand the context behind most of the code(s).
 
