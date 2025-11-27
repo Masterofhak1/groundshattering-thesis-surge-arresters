@@ -236,7 +236,7 @@ def find_zero_crossings(time, signal, direction='rising'):
 
 def reconstructCapacitiveCurrentSine(time, voltage, current, fundamental_freq):
     """
-    Reconstruct an ideal capacitive current that leads voltage by +90Â°,
+    Reconstruct an ideal capacitive current that leads voltage by +90°,
     using voltage zero crossings to anchor the phase and amplitude.
     
     Parameters:
@@ -2025,4 +2025,5 @@ def main_pipeline(file_pattern="*.csv", output_dir="results_improved"):
 
 if __name__ == '__main__':
     plt.close('all')
+
     main_pipeline("A5_1_*csv", output_dir="results")
