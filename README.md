@@ -1,4 +1,4 @@
-# Surge Arrester Testing - Analysis & Modeling
+# Characterisation of Arresters of Harmonic Overvoltage Studies
 
 Hi! If you have found this repository for surge arrester testing (or stumbled by accident?), I would recommend you read first my thesis here: [Characterisation of Arresters for Harmonic Overvoltage Studies](https://resolver.tudelft.nl/uuid:81ae282d-0ad8-44b0-adf3-3be180313855) to understand the context behind most of the code(s).
 
@@ -437,7 +437,7 @@ From improved_ac_results.csv:
 
 ---
 
-## Tips for Success
+## Tips (very imp.)
 
 1. **Keep organized:** Create separate folders for each voltage/frequency sweep
 2. **Consistent naming:** Use the same file number for same voltage across frequencies
@@ -460,10 +460,12 @@ https://resolver.tudelft.nl/uuid:81ae282d-0ad8-44b0-adf3-3be180313855
 
 ## Contact
 
+
 Questions, feedback, or just want to chat about surge arresters? Feel free to reach out!
 
-- **Email:** [your.email@example.com](mailto:your.email@example.com)
-- **LinkedIn:** [Your Name](https://linkedin.com/in/your-profile)
+- **Email:** [pavanpratyush@gmail.com](mailto:pavanpratyush@gmail.com)
+- **LinkedIn:** [Pavan Dhulipala](https://linkedin.com/in/pavanpratyush/)
+
 
 ---
 
