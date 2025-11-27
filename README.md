@@ -365,7 +365,7 @@ From improved_ac_results.csv:
 
 ---
 
-## Tips for Success
+## Tips (very imp.)
 
 1. **Keep organized:** Create separate folders for each voltage/frequency sweep
 2. **Consistent naming:** Use the same file number for same voltage across frequencies
@@ -388,7 +388,10 @@ https://resolver.tudelft.nl/uuid:81ae282d-0ad8-44b0-adf3-3be180313855
 
 ## Contact
 
-Questions or issues? Feel free to reach out!
+Questions or issues? Feel free to reach out to me at 
+pavanpratyush@gmail.com
+
+You can also find me on LinkedIn; https://www.linkedin.com/in/pavanpratyush/
 
 ---
 
