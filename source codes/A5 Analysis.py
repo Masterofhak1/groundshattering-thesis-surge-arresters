@@ -1878,7 +1878,7 @@ def plot_vi_characteristics(df_ac, df_dc=None, output_dir="results_improved", al
     
     plt.xlabel('Current (mA)', fontsize=14)
     plt.ylabel('Voltage (kV)', fontsize=14)
-    #plt.title('Metal Oxide Varistor (MOV) Vâ€“I Characteristics', fontsize=16)
+    #plt.title('Metal Oxide Varistor (MOV) V-I Characteristics', fontsize=16)
     plt.legend(fontsize=12, title="Frequency", title_fontsize=13)
     
     plt.grid(True, which='major', alpha=0.3, linestyle='-')
@@ -2009,7 +2009,7 @@ def main_pipeline(file_pattern="*.csv", output_dir="results_improved"):
     else:
         print("No DC data available for analysis.")
     
-    # Plot Vâ€“I characteristics (combining AC and DC)
+    # Plot V-I characteristics (combining AC and DC)
     print("\nGenerating V-I characteristics plot...")
     plot_vi_characteristics(
         df_ac_decomposed if df_ac is not None else None, 
@@ -2027,3 +2027,4 @@ if __name__ == '__main__':
     plt.close('all')
 
     main_pipeline("A5_1_*csv", output_dir="results")
+
