@@ -355,7 +355,7 @@ Create a file named `Impedance Plots Validation.csv` (or similar) with columns:
 ```python
 prioritize_R = True  # or False
 ```
-The script runs twice automatically - once balanced, once R-prioritized. Honestly? I just use R-priority because it makes me happier. But the actual reason it exists: the R-priority mode weights resistance fitting 5× higher than capacitance in the error minimization. This helps when the optimizer might otherwise sacrifice R accuracy to get a better X fit - and we want those R losses properly captured in the model.
+The script runs twice automatically - once balanced, once R-prioritised. Honestly? I just use R-priority because it makes me happier. But the actual reason it exists: the R-priority mode weights resistance fitting 5× higher than capacitance in the error minimisation. This helps when the optimiser might otherwise sacrifice R accuracy to get a better X fit - and we want those R losses properly captured in the model.
 
 **2. Input Units**
 The script expects `R_equ` and `|X_equ|` columns in **MΩ**. It converts internally to Ω. If your data is already in Ω, your results will be off by 10^6 - double check this!
@@ -504,7 +504,7 @@ From improved_ac_results.csv:
 
 ## Tips (very imp.)
 
-1. **Keep organized:** Create separate folders for each voltage/frequency sweep
+1. **Keep organised:** Create separate folders for each voltage/frequency sweep
 2. **Consistent naming:** Use the same file number for same voltage across frequencies
    - Good: `A5_1_17-0016.csv`, `A5_1_50-0016.csv`, `A5_1_150-0016.csv`
    - Bad: `A5_1_17-0016.csv`, `A5_1_50-0023.csv`, `A5_1_150-0008.csv`
