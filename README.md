@@ -29,7 +29,10 @@ conda create -n surge-arrester python=3.9
 conda activate surge-arrester
 conda install numpy pandas matplotlib scipy numba
 ```
+
+### Already have a conda environment?
 It could be that these packages are already installed in your conda environment, but its always good to check twice.
+
 ---
 
 ## Code Documentation
@@ -54,10 +57,15 @@ groundshattering-thesis-surge-arresters/
 │   ├── nonlinear_resistive_current.py   # Step 3: Extract nonlinear V-I
 │   ├── Cole Cole Model for Measurements.py  # Step 4: Cole-Cole parameter fitting
 │   ├── Realising RC Networks.py    # Step 5: RC network synthesis
-│   └── improved_ac_results.csv     # Example: Intermediate results file
-├── examples/                        # Example datasets and results
+│   ├── improved_ac_results.csv     # Example: Intermediate results file
+│   ├── Impedance Plots Validation.csv   # Example: Input for Cole-Cole fitting
+│   └── Impedance Plots Validation.xlsx  # Example: Input for Cole-Cole fitting
+├── examples/                        # Example datasets and measurement tallies
+│   ├── Measurements Tally A5.xlsx  # Example measurement tracking sheet
+│   └── Measurement Tally.xlsx      # Example measurement tracking sheet
 ├── data/                           # Input data files (scope measurements)
 ├── results/                        # Output files and plots
+├── modelling/                      # Model files (ATP/EMTP, etc.)
 └── README.md                       # This file
 ```
 
@@ -68,7 +76,7 @@ groundshattering-thesis-surge-arresters/
 ### Step 1: Data Collection from Oscilloscope
 
 **What you do:**
-1. Save data from your Picoscope (or similar oscilloscope). I usually keep track of the test cases using an excel sheet; to have an idea of the progress and everything in one place. See ['examples here'](examples/Measurements%20Tally%20A5.xlsx) & (examples/Measurement%20Tally.xlsx)
+1. Save data from your Picoscope (or similar oscilloscope). I usually keep track of the test cases using an excel sheet; to have an idea of the progress and everything in one place. See [examples here](examples/Measurements%20Tally%20A5.xlsx) & [here](examples/Measurement%20Tally.xlsx)
 2. Data format: 3 columns in CSV format
    - Column 1: Time (ms)
    - Column 2 (CH1): Voltage (kV)
@@ -99,6 +107,70 @@ groundshattering-thesis-surge-arresters/
 | **Line 2028** | `file_pattern` | `"A5_1_*csv"` | Pattern to match your data files |
 | **Line 2028** | `output_dir` | `"results"` | Output folder for results |
 | Line 389 | Voltage multiplier | `* 1000 * 3` | Amplifier gain (3x in this case) |
+
+#### Understanding the Configurable Parameters
+
+The code is used to analyse the MOV data. I recommend you to save each file in a pattern, for the code to run smoothly (and not risk missing data). The following pointers explain the sections of the code that can be configured based on your preferences and test conditions, along with brief explanation of how varying these parameters can affect your results:
+
+**1. Window Size (Smoothing)**
+```python
+window_size = int(round(0.0001 * Fs))
+```
+`0.0001` is the window size selected. If you *decrease* the window size to e.g. `0.001`, you're averaging fewer samples which would aggressively smoothen your waveforms and you could lose crucial waveform information (like peaks, transients and noise). Likewise if you *increase* the window size to `0.00001*Fs`, you're averaging across a larger number of samples.
+
+You will need to adjust this rectangular window size based on the -3dB roll-off of your low pass filter. In the code, the LPF was 5kHz, hence the 100 µs size.
+
+**2. Target Frequencies**
+```python
+target_freqs = [10, 17, 27, 50, 100, 150, 300, 500]
+for target_freq in target_freqs:
+    if abs(freq - target_freq) <= 1.5:
+        return target_freq
+return round(freq)
+```
+Target frequency is the preset frequency options in the code. If the analysis iteration detects a frequency of the signal near these frequencies, it assumes it is THAT frequency, and considers the further analysis using that frequency value. You may change the values/index here based on the frequencies you are testing the MOV.
+
+Why? Often real world measurements are not precise. Side note - real arrester current also has simultaneously several harmonic currents, which is a limitation of this code. See Chapter 6 of thesis for more information.
+
+**3. Dynamic Sampling Based on Frequency**
+```python
+# "ENHANCED" - Dynamic sampling based on frequency
+# Quick frequency detection for sampling strategy
+quick_samples = min(2**17, len(time_all_proc) - 1000)
+quick_time = time_all_proc[1000:1000 + quick_samples]
+quick_voltage = ch1_debiased[1000:1000 + quick_samples]
+
+# Detect frequency
+quick_freq, _, _, _ = iDFT3pHann(quick_voltage, quick_time[-1] - quick_time[0])
+std_freq = standardize_frequency(quick_freq)
+
+# Dynamic sampling
+if std_freq == 10:
+    start_idx = 1000
+    num_samples = 2**19  # 524,288 samples for 10 Hz, because of long period.
+    print(f"\n[10 Hz Mode] Extended sampling: {num_samples:,} samples")
+else:
+    start_idx = 1000
+    num_samples = 2**17  # 131,072 samples for other frequencies
+    print(f"\n[{std_freq} Hz Mode] Standard sampling: {num_samples:,} samples")
+```
+`num_samples` was defined as 2^19 (for 10 Hz) and 2^17 (for the rest) because of the sampling rate (the number of samples captured per second) used in the picoscope for capturing the data. It's good practise to have a higher sampling rate else we fall victim to aliasing. Aliasing bad. However, there's a sweet spot (I'm not sure what it is for this file data, but > 2^17 did a good job). Lower sampling rate = aliasing & data loss. Higher sampling rate = high computation power and file size (redundant).
+
+**4. Cycles for Visualization**
+```python
+# Calculate period for 4 cycles
+period = 1.0 / fundamental_freq
+time_for_4_cycles = 4.0 * period
+```
+The 4 cycles are only for visual purposes. The actual files compute for as many cycles as your sample rate permits (for a constant sample rate, your cycles increase with frequency).
+
+**5. Plot Functions**
+Every function defined as `plot_*` is a visual function; not an analysis function.
+
+**6. Data Units & Voltage Amplifier Gain**
+The scope data is assumed to have 3 columns of data: `[time(ms), Voltage(V), Current(A)]`, and across the code, you will notice that I have converted these units to a scale that is comprehensible: `[s, kV, mA]`, as well as MΩ and nF.
+
+**Voltage amplifier gain = 3x** in the code. This is a hardcoded value -- 1:3000 for my test setup; 1 volt step up on my signal generator is a 3kV step up through the amplifier (at the DUT). I urge you to double check if your power amplifier (or transformer) has the same gain before skipping this change. If not, change this value accordingly.
 
 **How to run:**
 ```bash
@@ -388,7 +460,10 @@ https://resolver.tudelft.nl/uuid:81ae282d-0ad8-44b0-adf3-3be180313855
 
 ## Contact
 
-Questions or issues? Feel free to reach out!
+Questions, feedback, or just want to chat about surge arresters? Feel free to reach out!
+
+- **Email:** [your.email@example.com](mailto:your.email@example.com)
+- **LinkedIn:** [Your Name](https://linkedin.com/in/your-profile)
 
 ---
 
