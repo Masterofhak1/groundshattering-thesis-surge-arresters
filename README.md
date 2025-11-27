@@ -116,7 +116,7 @@ The code is used to analyse the MOV data. I recommend you to save each file in a
 ```python
 window_size = int(round(0.0001 * Fs))
 ```
-`0.0001` is the window size selected. If you *decrease* the window size to e.g. `0.001`, you're averaging fewer samples which would aggressively smoothen your waveforms and you could lose crucial waveform information (like peaks, transients and noise). Likewise if you *increase* the window size to `0.00001*Fs`, you're averaging across a larger number of samples.
+`0.0001` is the window size selected. If you *decrease* the window size to e.g. `0.001`, you're averaging fewer samples which would aggressively smoothen your waveforms and you could lose crucial waveform information (like peaks, transients and noise). Conversely, if you *increase* the window size to `0.00001*Fs`, you're averaging across a larger number of samples.
 
 You will need to adjust this rectangular window size based on the -3dB roll-off of your low pass filter. In the code, the LPF was 5kHz, hence the 100 µs size.
 
