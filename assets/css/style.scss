@@ -7,16 +7,20 @@
 body {
   background: url('/groundshattering-thesis-surge-arresters/assets/images/background.jpg') no-repeat center center fixed;
   background-size: cover;
+  margin: 0;
+  padding: 0;
 }
 
-/* Wider layout - fix phone-style narrow content */
+/* Responsive layout - adapts to screen size */
 .inner {
-  max-width: 900px !important;
-  width: 90% !important;
+  max-width: 85vw !important;
+  width: 85vw !important;
+  margin: 0 auto;
+  padding: 0 2vw;
 }
 
 #main_content {
-  max-width: 900px !important;
+  max-width: 100% !important;
   width: 100% !important;
 }
 
@@ -27,7 +31,8 @@ body {
   -webkit-backdrop-filter: blur(12px);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 30px 0;
+  padding: 2vh 0;
+  min-height: 100vh;
 }
 
 /* Header section */
@@ -35,25 +40,20 @@ body {
   background: rgba(15, 25, 35, 0.92) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  padding: 2vh 0;
+}
+
+#header_wrap .inner {
+  max-width: 85vw !important;
+  width: 85vw !important;
 }
 
 /* Footer - hide GitHub Pages credit */
 #footer_wrap {
-  background: rgba(15, 25, 35, 0.92) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-#footer_wrap .inner {
   display: none !important;
 }
 
-/* Or if you want to keep footer but hide specific text */
-footer span {
-  display: none !important;
-}
-
-/* Ensure text remains readable */
+/* Text styling */
 h1, h2, h3, h4 {
   color: #f0f0f0 !important;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
@@ -61,14 +61,17 @@ h1, h2, h3, h4 {
 
 p, li, td, th {
   color: #e0e0e0 !important;
+  line-height: 1.7;
 }
 
-/* Code blocks with better contrast */
+/* Code blocks */
 pre {
   background: rgba(0, 0, 0, 0.5) !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 8px;
   padding: 15px !important;
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 code {
@@ -77,11 +80,13 @@ code {
   color: #e6db74 !important;
 }
 
-/* Tables */
+/* Tables - responsive */
 table {
   background: rgba(0, 0, 0, 0.3) !important;
   border-radius: 8px;
   width: 100%;
+  display: block;
+  overflow-x: auto;
 }
 
 th {
@@ -90,6 +95,7 @@ th {
 
 td, th {
   border-color: rgba(255, 255, 255, 0.1) !important;
+  padding: 10px 15px !important;
 }
 
 /* Links */
@@ -112,4 +118,34 @@ blockquote {
   border-left: 4px solid #6db3f2;
   padding: 10px 20px;
   border-radius: 0 8px 8px 0;
+}
+
+/* Responsive breakpoints */
+@media screen and (min-width: 1400px) {
+  .inner, #header_wrap .inner {
+    max-width: 75vw !important;
+    width: 75vw !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .inner, #header_wrap .inner {
+    max-width: 95vw !important;
+    width: 95vw !important;
+    padding: 0 2.5vw;
+  }
+
+  table {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .inner, #header_wrap .inner {
+    max-width: 98vw !important;
+    width: 98vw !important;
+  }
+
+  h1 { font-size: 1.8em !important; }
+  h2 { font-size: 1.5em !important; }
 }
