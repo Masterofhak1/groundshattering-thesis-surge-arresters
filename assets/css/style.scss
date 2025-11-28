@@ -5,45 +5,18 @@
 
 /* Background */
 body {
-  background: url('/groundshattering-thesis-surge-arresters/assets/images/Surge%20arrester.jpg') no-repeat center center fixed;
+  background: url('/groundshattering-thesis-surge-arresters/assets/images/background.jpg') no-repeat center center fixed;
   background-size: cover;
   margin: 0;
   padding: 0;
 }
 
-/* Full-page translucent container */
-#header_wrap,
-#main_content_wrap,
-#footer_wrap {
-  background: transparent !important;
-}
-
-/* Create a centered translucent column for entire content */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 100vh;
-  background: rgba(10, 20, 30, 0.85);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Responsive layout - 80% width */
+/* Responsive layout - adapts to screen size */
 .inner {
-  max-width: 80% !important;
-  width: 80% !important;
+  max-width: 85vw !important;
+  width: 85vw !important;
   margin: 0 auto;
-  padding: 0 3%;
-  box-sizing: border-box;
+  padding: 0 2vw;
 }
 
 #main_content {
@@ -51,21 +24,28 @@ body::before {
   width: 100% !important;
 }
 
-/* Main content wrapper */
+/* Main content wrapper - translucent box */
 #main_content_wrap {
-  padding: 3vh 0;
+  background: rgba(15, 25, 35, 0.88) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2vh 0;
   min-height: 100vh;
 }
 
 /* Header section */
 #header_wrap {
+  background: rgba(15, 25, 35, 0.92) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 2vh 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #header_wrap .inner {
-  max-width: 80% !important;
-  width: 80% !important;
+  max-width: 85vw !important;
+  width: 85vw !important;
 }
 
 /* Footer - hide GitHub Pages credit */
@@ -142,23 +122,17 @@ blockquote {
 
 /* Responsive breakpoints */
 @media screen and (min-width: 1400px) {
-  body::before {
-    width: 75%;
-  }
   .inner, #header_wrap .inner {
-    max-width: 75% !important;
-    width: 75% !important;
+    max-width: 75vw !important;
+    width: 75vw !important;
   }
 }
 
 @media screen and (max-width: 768px) {
-  body::before {
-    width: 95%;
-  }
   .inner, #header_wrap .inner {
-    max-width: 95% !important;
-    width: 95% !important;
-    padding: 0 2.5%;
+    max-width: 95vw !important;
+    width: 95vw !important;
+    padding: 0 2.5vw;
   }
 
   table {
@@ -167,12 +141,9 @@ blockquote {
 }
 
 @media screen and (max-width: 480px) {
-  body::before {
-    width: 98%;
-  }
   .inner, #header_wrap .inner {
-    max-width: 98% !important;
-    width: 98% !important;
+    max-width: 98vw !important;
+    width: 98vw !important;
   }
 
   h1 { font-size: 1.8em !important; }
