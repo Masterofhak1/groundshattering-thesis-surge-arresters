@@ -8,7 +8,7 @@ To my supervisors visiting this page: send me an email when you're working on it
 
 ## Overview
 
-This repository contains the complete workflow for processing, analyzing, and modeling surge arresters in the insulation region. The procedure for obtaining results is fairly straightforward, as long as you keep track of the results (and the blinding amount of information in some of the intermediate Excel files). I'm happy to say it's not rocket science!
+This repository contains the complete workflow for processing, analyzing, and modeling surge arresters in the insulation region. The procedure for obtaining results is fairly straightforward, as long as you keep track of the results (and the blinding amount of information in some of the intermediate Excel files). I'm happy to say it's not rocket science.
 
 ---
 
@@ -116,7 +116,7 @@ The code is used to analyse the MOV data. I recommend you to save each file in a
 ```python
 window_size = int(round(0.0001 * Fs))
 ```
-`0.0001` is the window size selected. If you *decrease* the window size to e.g. `0.001`, you're averaging fewer samples which would aggressively smoothen your waveforms and you could lose crucial waveform information (like peaks, transients and noise). Likewise if you *increase* the window size to `0.00001*Fs`, you're averaging across a larger number of samples.
+`0.0001` is the window size selected. If you *decrease* the window size to e.g. `0.001`, you're averaging fewer samples which would aggressively smoothen your waveforms and you could lose crucial waveform information (like peaks, transients and noise). Conversely, if you *increase* the window size to `0.00001*Fs`, you're averaging across a larger number of samples.
 
 You will need to adjust this rectangular window size based on the -3dB roll-off of your low pass filter. In the code, the LPF was 5kHz, hence the 100 µs size.
 
@@ -195,7 +195,7 @@ python "source codes/A5 Analysis.py"
 **Script:** [`source codes/A5 Energy and Power Analysis.py`](source%20codes/A5%20Energy%20and%20Power%20Analysis.py)
 
 **Why this matters:**
-This script calculates the energy dissipation and power consumption of your measured MOV over time. You'll need these results later (after modeling in ATP) to compare against your ATP model's energy and power outputs - this is how you validate that your model actually behaves like the real device. Don't skip this!
+This script calculates the energy dissipation and power consumption of your measured MOV over time. You'll need these results later (after modeling in ATP) to compare against your ATP model's energy and power outputs - this is how you validate that your model actually behaves like the real device. Don't skip this.
 
 **What it does:**
 - Calculates energy dissipation and power over time
@@ -355,7 +355,7 @@ Create a file named `Impedance Plots Validation.csv` (or similar) with columns:
 ```python
 prioritize_R = True  # or False
 ```
-The script runs twice automatically - once balanced, once R-prioritised. Honestly? I just use R-priority because it makes me happier. But the actual reason it exists: the R-priority mode weights resistance fitting 5× higher than capacitance in the error minimisation. This helps when the optimiser might otherwise sacrifice R accuracy to get a better X fit - and we want those R losses properly captured in the model.
+The script runs twice automatically - once balanced, once R-prioritised. Frankly, I just use R-priority because it reassures me. But the actual reason it exists: the R-priority mode weights resistance fitting 5× higher than capacitance in the error minimisation. This helps when the optimiser might otherwise sacrifice R accuracy to get a better X fit - and we want those R losses properly captured in the model.
 
 **2. Input Units**
 The script expects `R_equ` and `|X_equ|` columns in **MΩ**. It converts internally to Ω. If your data is already in Ω, your results will be off by 10^6 - double check this!
