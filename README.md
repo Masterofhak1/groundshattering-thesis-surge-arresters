@@ -8,7 +8,7 @@ To my supervisors visiting this page: send me an email when you're working on it
 
 ## Overview
 
-This repository contains the complete workflow for processing, analyzing, and modeling surge arresters in the insulation region. The procedure for obtaining results is fairly straightforward, as long as you keep track of the results (and the blinding amount of information in some of the intermediate Excel files). I'm happy to say it's not rocket science!
+This repository contains the complete workflow for processing, analyzing, and modeling surge arresters in the insulation region. The procedure for obtaining results is fairly straightforward, as long as you keep track of the results (and the blinding amount of information in some of the intermediate Excel files). I'm happy to say it's not rocket science.
 
 ---
 
