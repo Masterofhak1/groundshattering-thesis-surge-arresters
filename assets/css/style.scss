@@ -3,20 +3,60 @@
 
 @import "jekyll-theme-midnight";
 
-/* Background */
+/* ===========================================
+   PERFORMANCE-OPTIMISED DARK THEME
+   - No backdrop-filter (causes jitter/lag)
+   - Simple dark overlay on background image
+   - Standard GitHub Pages markdown style
+   =========================================== */
+
+/* Background image with dark overlay */
 body {
-  background: url('/groundshattering-thesis-surge-arresters/assets/images/background.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: #0d1117;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
-/* Responsive layout - adapts to screen size */
+/* Background image layer - fixed, no blur for performance */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/groundshattering-thesis-surge-arresters/assets/images/background.jpg') no-repeat center center;
+  background-size: cover;
+  z-index: -2;
+}
+
+/* Dark translucent overlay on top of image */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 17, 23, 0.88);
+  z-index: -1;
+}
+
+/* Content wrappers - transparent to show overlay */
+#header_wrap,
+#main_content_wrap,
+#footer_wrap {
+  background: transparent !important;
+}
+
+/* Centered content container */
 .inner {
-  max-width: 85vw !important;
-  width: 85vw !important;
+  max-width: 900px !important;
+  width: 90% !important;
   margin: 0 auto;
-  padding: 0 2vw;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 #main_content {
@@ -24,128 +64,194 @@ body {
   width: 100% !important;
 }
 
-/* Main content wrapper - translucent box */
+/* Main content wrapper */
 #main_content_wrap {
-  background: rgba(15, 25, 35, 0.88) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2vh 0;
+  padding: 30px 0;
   min-height: 100vh;
 }
 
 /* Header section */
 #header_wrap {
-  background: rgba(15, 25, 35, 0.92) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 2vh 0;
+  padding: 20px 0;
+  border-bottom: 1px solid #30363d;
 }
 
 #header_wrap .inner {
-  max-width: 85vw !important;
-  width: 85vw !important;
+  max-width: 900px !important;
+  width: 90% !important;
 }
 
-/* Footer - hide GitHub Pages credit */
+/* Hide footer */
 #footer_wrap {
   display: none !important;
 }
 
-/* Text styling */
-h1, h2, h3, h4 {
-  color: #f0f0f0 !important;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+/* ===========================================
+   TYPOGRAPHY - GitHub Dark Style
+   =========================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  color: #e6edf3 !important;
+  font-weight: 600;
+  border-bottom-color: #30363d !important;
+  text-shadow: none;
 }
 
-p, li, td, th {
-  color: #e0e0e0 !important;
-  line-height: 1.7;
+h1 { font-size: 2em; margin-bottom: 16px; }
+h2 { font-size: 1.5em; margin-top: 24px; margin-bottom: 16px; padding-bottom: 0.3em; border-bottom: 1px solid #30363d; }
+h3 { font-size: 1.25em; }
+
+p, li {
+  color: #c9d1d9 !important;
+  line-height: 1.6;
 }
 
-/* Code blocks */
+strong {
+  color: #e6edf3 !important;
+}
+
+/* ===========================================
+   CODE BLOCKS - GitHub Dark Style
+   =========================================== */
+
 pre {
-  background: rgba(0, 0, 0, 0.5) !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  border-radius: 8px;
-  padding: 15px !important;
+  background: #161b22 !important;
+  border: 1px solid #30363d !important;
+  border-radius: 6px;
+  padding: 16px !important;
   overflow-x: auto;
   max-width: 100%;
 }
 
 code {
-  background: rgba(0, 0, 0, 0.4) !important;
-  border-radius: 4px;
-  color: #e6db74 !important;
+  background: rgba(110, 118, 129, 0.4) !important;
+  border-radius: 6px;
+  padding: 0.2em 0.4em;
+  color: #e6edf3 !important;
+  font-size: 85%;
 }
 
-/* Tables - responsive */
+pre code {
+  background: transparent !important;
+  padding: 0;
+  font-size: 85%;
+  color: #c9d1d9 !important;
+}
+
+/* ===========================================
+   TABLES - GitHub Dark Style
+   =========================================== */
+
 table {
-  background: rgba(0, 0, 0, 0.3) !important;
-  border-radius: 8px;
+  background: transparent !important;
+  border-collapse: collapse;
   width: 100%;
   display: block;
   overflow-x: auto;
+  border-radius: 0;
+}
+
+th, td {
+  border: 1px solid #30363d !important;
+  padding: 6px 13px !important;
+  color: #c9d1d9 !important;
 }
 
 th {
-  background: rgba(0, 0, 0, 0.5) !important;
+  background: #161b22 !important;
+  font-weight: 600;
+  color: #e6edf3 !important;
 }
 
-td, th {
-  border-color: rgba(255, 255, 255, 0.1) !important;
-  padding: 10px 15px !important;
+tr {
+  background: transparent;
 }
 
-/* Links */
+tr:nth-child(2n) {
+  background: rgba(22, 27, 34, 0.5);
+}
+
+/* ===========================================
+   LINKS
+   =========================================== */
+
 a {
-  color: #6db3f2 !important;
+  color: #58a6ff !important;
+  text-decoration: none;
 }
 
 a:hover {
-  color: #9dcfff !important;
+  text-decoration: underline;
 }
 
-/* Horizontal rules */
+/* ===========================================
+   OTHER ELEMENTS
+   =========================================== */
+
 hr {
-  border-color: rgba(255, 255, 255, 0.2) !important;
+  border: 0;
+  border-top: 1px solid #30363d !important;
+  margin: 24px 0;
 }
 
-/* Blockquotes */
 blockquote {
-  background: rgba(0, 0, 0, 0.3);
-  border-left: 4px solid #6db3f2;
-  padding: 10px 20px;
-  border-radius: 0 8px 8px 0;
+  background: transparent;
+  border-left: 4px solid #30363d;
+  padding: 0 16px;
+  margin: 16px 0;
+  color: #8b949e !important;
 }
 
-/* Responsive breakpoints */
-@media screen and (min-width: 1400px) {
+/* Lists */
+ul, ol {
+  padding-left: 2em;
+}
+
+li {
+  margin: 0.25em 0;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+/* ===========================================
+   RESPONSIVE
+   =========================================== */
+
+@media screen and (min-width: 1200px) {
   .inner, #header_wrap .inner {
-    max-width: 75vw !important;
-    width: 75vw !important;
+    max-width: 980px !important;
   }
 }
 
 @media screen and (max-width: 768px) {
   .inner, #header_wrap .inner {
-    max-width: 95vw !important;
-    width: 95vw !important;
-    padding: 0 2.5vw;
+    width: 95% !important;
+    padding: 0 15px;
   }
 
   table {
     font-size: 14px;
   }
+
+  h1 { font-size: 1.75em; }
+  h2 { font-size: 1.35em; }
 }
 
 @media screen and (max-width: 480px) {
   .inner, #header_wrap .inner {
-    max-width: 98vw !important;
-    width: 98vw !important;
+    width: 100% !important;
+    padding: 0 12px;
   }
 
-  h1 { font-size: 1.8em !important; }
-  h2 { font-size: 1.5em !important; }
+  h1 { font-size: 1.5em !important; }
+  h2 { font-size: 1.25em !important; }
+
+  pre {
+    padding: 12px !important;
+    font-size: 13px;
+  }
 }
