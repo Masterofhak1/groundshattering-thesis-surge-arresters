@@ -3,79 +3,113 @@
 
 @import "jekyll-theme-midnight";
 
+/* Background */
 body {
   background: url('/groundshattering-thesis-surge-arresters/assets/images/Surge%20arrester.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 
-/* Main content wrapper - translucent box */
+/* Wider layout - fix phone-style narrow content */
+.inner {
+  max-width: 900px !important;
+  width: 90% !important;
+}
+
 #main_content {
-  background: rgba(15, 25, 35, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 30px 40px;
-  margin: 20px auto;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 900px !important;
+  width: 100% !important;
+}
+
+/* Main content wrapper - translucent box */
+#main_content_wrap {
+  background: rgba(15, 25, 35, 0.88) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px 0;
 }
 
 /* Header section */
 #header_wrap {
-  background: rgba(15, 25, 35, 0.9);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(15, 25, 35, 0.92) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-/* Footer section */
+/* Footer - hide GitHub Pages credit */
 #footer_wrap {
-  background: rgba(15, 25, 35, 0.9);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(15, 25, 35, 0.92) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+#footer_wrap .inner {
+  display: none !important;
+}
+
+/* Or if you want to keep footer but hide specific text */
+footer span {
+  display: none !important;
 }
 
 /* Ensure text remains readable */
-#main_content h1,
-#main_content h2,
-#main_content h3,
-#main_content h4 {
-  color: #f0f0f0;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+h1, h2, h3, h4 {
+  color: #f0f0f0 !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
 }
 
-#main_content p,
-#main_content li,
-#main_content td {
-  color: #e0e0e0;
+p, li, td, th {
+  color: #e0e0e0 !important;
 }
 
 /* Code blocks with better contrast */
-#main_content pre {
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+pre {
+  background: rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 8px;
+  padding: 15px !important;
 }
 
-#main_content code {
-  background: rgba(0, 0, 0, 0.4);
+code {
+  background: rgba(0, 0, 0, 0.4) !important;
   border-radius: 4px;
+  color: #e6db74 !important;
 }
 
 /* Tables */
-#main_content table {
-  background: rgba(0, 0, 0, 0.3);
+table {
+  background: rgba(0, 0, 0, 0.3) !important;
   border-radius: 8px;
+  width: 100%;
 }
 
-#main_content th {
-  background: rgba(0, 0, 0, 0.4);
+th {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
+td, th {
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* Links */
-#main_content a {
-  color: #6db3f2;
+a {
+  color: #6db3f2 !important;
 }
 
-#main_content a:hover {
-  color: #9dcfff;
+a:hover {
+  color: #9dcfff !important;
+}
+
+/* Horizontal rules */
+hr {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Blockquotes */
+blockquote {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 4px solid #6db3f2;
+  padding: 10px 20px;
+  border-radius: 0 8px 8px 0;
 }
